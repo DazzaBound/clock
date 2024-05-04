@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clock</title>
+
+</head>
+
+<body>
+        <div id="time"></div>
+        <div id="date"></div>
+
+    <script>
+        function updateTime() {
+            const date = new Date();
+            let hours = date.getHours();
+            let minutes = date.getMinutes();
+            let am_pm = hours >= 12 ? 'PM' : 'AM';
+
+            hours = hours % 12;
+            hours = hours ? hours : 12;
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+
+            document.getElementById('time').textContent = hours + ':' + minutes + ' ' + am_pm;
+
+            const day = date.toLocaleDateString(navigator.language, { weekday: 'short' });
+            const options = { day: 'numeric', month: 'long' };
+            const formattedDate = date.toLocaleDateString(navigator.language, options);
+            document.getElementById('date').textContent = day + '. ' + formattedDate;
+        }
+
+        updateTime();
+        setInterval(updateTime, 1000);
+    </script>
+</body>
+</html>
